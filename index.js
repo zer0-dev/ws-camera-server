@@ -10,14 +10,6 @@ app.get('/', function(req,res){
 
 io.on('connection',function(socket){
 	console.log('connected');
-	var chunks = [];
-	/*var stream = fs.createReadStream(path.resolve(__dirname+'/image.jpg'), {encoding: 'binary'});
-	stream.on('data',function(chunk){
-		chunks.push(chunk);
-	});
-	stream.on('end',function(){
-		socket.emit('chunk',chunks);
-	});*/
 	fs.readFile(__dirname+'/image.jpg',function(err,res){
 		socket.emit('chunk',Buffer.from(res).toString('base64'));
 	});

@@ -9,7 +9,6 @@
 		<script>
 		  var socket = io();
 		  socket.on('chunk',function(chunk){
-			//var str = window.btoa(chunk);
 			document.querySelector('#img').setAttribute('src','data:image/jpeg;base64,'+chunk);
 		  });
 		  
