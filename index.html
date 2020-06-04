@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>WSCamera</title>
+	</head>
+	<body>
+		<h1>WSCamera</h1>
+		<img src="" id="img" width="720">
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+		  var socket = io();
+		  socket.on('chunk',function(chunk){
+			//var str = window.btoa(chunk);
+			document.querySelector('#img').setAttribute('src','data:image/jpeg;base64,'+chunk);
+		  });
+		  
+		  socket.on('newImage',function(a){
+			document.querySelector('#img').setAttribute('src','data:image/jpeg;base64,'+sef(a));
+		  });
+		  
+		  function sef(buffer) {
+			var binary = '';
+			var bytes = new Uint8Array(buffer);
+			var len = bytes.byteLength;
+			for (var i = 0; i < len; i++) {
+				binary += String.fromCharCode(bytes[i]);
+			}
+			return window.btoa(binary);
+		}
+		</script>
+	</body>
+</html>
